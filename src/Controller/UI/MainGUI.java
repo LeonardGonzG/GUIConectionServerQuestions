@@ -44,7 +44,7 @@ public class MainGUI {
             controllerServer.add(new BESConController(name, port));   
         }
         
-         String SEND_SERVER = "Preguntar Avengers";
+        String SEND_SERVER = "Preguntar Avengers";
          
         for(int i=0; i<controllerServer.size(); i++){
              controllerServer.get(i).sendQuestion(SEND_SERVER);
@@ -91,12 +91,7 @@ public class MainGUI {
                 
                     System.out.println("No hay respuesta para tu pregunta :(");
                     
-                }else if(answer.startsWith("0500")){
-                    
-//                    String answ= answer.substring(5);
-//                    System.out.println(answ);
-//                    System.out.println("ok");
-                }             
+                }        
                  
             } else {
 
