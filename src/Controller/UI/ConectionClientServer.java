@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller.UI;
 
 import Controller.Server.BESConController;
@@ -27,10 +22,11 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
     int numServer = 0;
     Thread thread[] = new Thread[hosts.length];
-
     int portUnique = 0;
-
     String SEND_SERVER = "";
+    String ANSWER_SERVER="";
+    int items=1;
+    int notAnswerServer=0;
 
     public ConectionClientServer() {
         initComponents();
@@ -244,7 +240,6 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
                     this.send.setEnabled(false);
                     this.btnSend.setEnabled(false);
-
                 }
 
             } catch (IOException ex) {
@@ -258,7 +253,6 @@ public class ConectionClientServer extends javax.swing.JFrame {
             this.send.setEnabled(false);
             this.btnSend.setEnabled(false);
         }
-
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -315,12 +309,14 @@ public class ConectionClientServer extends javax.swing.JFrame {
                 //Temas
                 if (answer.startsWith("0100")) {
                     String[] topics = answer.substring(5).split(";");
-                    System.out.println("");
-
+                   
                     for (String topic : topics) {
 
-                        System.out.println(topic.trim());
+                       ANSWER_SERVER  += items +" - "+ topic.trim();
+                       //System.out.println(ANSWER_SERVER);
+                        items++;
                     }
+                    items=1;
 
                 } else if (answer.startsWith("0200")) { //Preguntas ha realizar
 
@@ -329,24 +325,34 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
                     for (String q : questions) {
 
-                        System.out.println(q.trim());
+                        ANSWER_SERVER += items+" - "+q.trim();
+                        //System.out.println(ANSWER_SERVER);
+                        items++;
                     }
+                    items=1;
 
                 } else if (answer.startsWith("1000")) { //Respuesta a preguntas
-
-                    String answ = answer.substring(5);
-                    System.out.println(answ);
+                      ANSWER_SERVER+= answer.substring(5);
+                     // System.out.println( ANSWER_SERVER);
 
                 } else if (answer.startsWith("0000")) { // no se encuentra respuesta a la pregunta
 
-                    System.out.println("No hay respuesta para tu pregunta :(");
-
+                   // System.out.println("No hay respuesta para tu pregunta :(");
+                    notAnswerServer++;
                 }
             } else {
 
               this.showMessageError("NO ANSWER", "- - Did not answer");
             }
         }
+        
+        if(notAnswerServer == hosts.length){
+        
+         showMessageError("NOT ANSWER :(", "No answer to your question");
+        }
+        
+        jTextArea1.setText(ANSWER_SERVER);
+        
     }
 
     //Mensaje de error en pantalla al usuario
