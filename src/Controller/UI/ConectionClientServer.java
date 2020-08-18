@@ -24,9 +24,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
     Thread thread[] = new Thread[hosts.length];
     int portUnique = 0;
     String SEND_SERVER = "";
-    String ANSWER_SERVER="";
-    int items=1;
-    int notAnswerServer=0;
+    String ANSWER_SERVER = "";
 
     public ConectionClientServer() {
         initComponents();
@@ -49,9 +47,9 @@ public class ConectionClientServer extends javax.swing.JFrame {
         send = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnSend = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JPshow = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CONECTION TO SERVER QUESTIONS");
@@ -176,20 +174,14 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 880, 60));
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(204, 255, 204));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 255));
-        jTextArea1.setRows(5);
-        jTextArea1.setText("(?)...");
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 880, 360));
-
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("Question and answers");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+
+        JPshow.setBackground(new java.awt.Color(204, 204, 255));
+        jScrollPane2.setViewportView(JPshow);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 880, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,7 +208,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
         String host = this.host.getText();
         this.portConection = Integer.parseInt(this.port.getText());
 
-        if (!host.isEmpty() && this.portConection == 0) {
+        if (!host.isEmpty() && this.portConection != 0) {
 
             try {
 
@@ -232,8 +224,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
                     sc.close();
 
                     //Iniciar conexciones con servidores
-                    this.beginConectionWithServes();
-                    
+                    //   this.beginConectionWithServes();
                 } else {
 
                     this.showMessageError("No conection", "The server main does not answer");
@@ -262,6 +253,9 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
         if (!this.SEND_SERVER.isEmpty()) {
 
+            //Iniciar conexciones con servidores
+            this.beginConectionWithServes();
+
             this.sendQuestionServer();
 
         } else {
@@ -271,7 +265,8 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSendActionPerformed
 //Inicia la conexión con las IPs y puertos que dió como respuesta el servidor principal
-    private void beginConectionWithServes() {
+
+    public void beginConectionWithServes() {
 
         for (String host : hosts) {
 
@@ -283,7 +278,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
     }
 
     //Envia la pregunta a todos los servidores
-    private void sendQuestionServer() {
+    public void sendQuestionServer() {
 
         for (int i = 0; i < controllerServer.size(); i++) {
             controllerServer.get(i).sendQuestion(SEND_SERVER);
@@ -300,7 +295,13 @@ public class ConectionClientServer extends javax.swing.JFrame {
     }
 
     //Muestra la respuesta de los servidores al usuario
-    private void answersServers() {
+    public void answersServers() {
+
+        int items = 1;
+        int itemsQuestion=1;
+        int notAnswerServer = 0;
+        this.ANSWER_SERVER = "";
+        this.JPshow.setText("");
 
         for (int i = 0; i < controllerServer.size(); i++) {
 
@@ -309,14 +310,13 @@ public class ConectionClientServer extends javax.swing.JFrame {
                 //Temas
                 if (answer.startsWith("0100")) {
                     String[] topics = answer.substring(5).split(";");
-                   
+
                     for (String topic : topics) {
 
-                       ANSWER_SERVER  += items +" - "+ topic.trim();
-                       //System.out.println(ANSWER_SERVER);
+                        this.ANSWER_SERVER += items + " - " + topic.trim() + "\n";
+                        //System.out.println(ANSWER_SERVER);
                         items++;
                     }
-                    items=1;
 
                 } else if (answer.startsWith("0200")) { //Preguntas ha realizar
 
@@ -325,34 +325,36 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
                     for (String q : questions) {
 
-                        ANSWER_SERVER += items+" - "+q.trim();
+                        this.ANSWER_SERVER += itemsQuestion + " - " + q.trim() + "\n";
                         //System.out.println(ANSWER_SERVER);
-                        items++;
+                        itemsQuestion++;
                     }
-                    items=1;
 
                 } else if (answer.startsWith("1000")) { //Respuesta a preguntas
-                      ANSWER_SERVER+= answer.substring(5);
-                     // System.out.println( ANSWER_SERVER);
+                    this.ANSWER_SERVER = answer.substring(5);
+                    // System.out.println( ANSWER_SERVER);
 
                 } else if (answer.startsWith("0000")) { // no se encuentra respuesta a la pregunta
 
-                   // System.out.println("No hay respuesta para tu pregunta :(");
+                    // System.out.println("No hay respuesta para tu pregunta :(");
                     notAnswerServer++;
+                    //  System.out.println(""+notAnswerServer);
                 }
             } else {
 
-              this.showMessageError("NO ANSWER", "- - Did not answer");
+                this.showMessageError("NO ANSWER", "- - Did not answer");
             }
         }
-        
-        if(notAnswerServer == hosts.length){
-        
-         showMessageError("NOT ANSWER :(", "No answer to your question");
+
+        if (notAnswerServer == hosts.length) {
+            this.ANSWER_SERVER = "...";
+            showMessageError("NOT ANSWER :(", "No answer to your question");
         }
-        
-        jTextArea1.setText(ANSWER_SERVER);
-        
+
+        this.JPshow.replaceSelection(ANSWER_SERVER);
+
+        this.ANSWER_SERVER = "-1";
+       
     }
 
     //Mensaje de error en pantalla al usuario
@@ -401,6 +403,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane JPshow;
     private javax.swing.JButton btnSend;
     private javax.swing.JTextField host;
     private javax.swing.JButton jButton1;
@@ -412,8 +415,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField port;
     private javax.swing.JTextField send;
     // End of variables declaration//GEN-END:variables
