@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fb96909d-14d0-4c0f-b601-143fcef43405" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/build/built-jar.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/built-jar.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/.netbeans_automatic_build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/.netbeans_update_resources" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/Server/BESConController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/Server/BESConController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/Server/CommandProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/Server/CommandProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/Server/SocketController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/Server/SocketController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/Server/SocketListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/Server/SocketListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/UI/ConectionClientServer.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/Controller/UI/MainGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Controller/UI/MainGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/ConectionUser_Servers.jar" beforeDir="false" afterPath="$PROJECT_DIR$/dist/ConectionUser_Servers.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UI/ConectionClientServer.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UI/ConectionClientServer.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UI/ConectionClientServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UI/ConectionClientServer.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1gHtWQnbiBahUJAulRO96AeCFG5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fb96909d-14d0-4c0f-b601-143fcef43405" name="Default Changelist" comment="" />
+      <created>1597783377488</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1597783377488</updated>
+    </task>
+    <servers />
+  </component>
+</project>

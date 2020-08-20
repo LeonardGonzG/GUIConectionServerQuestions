@@ -226,9 +226,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
                     //Iniciar conexciones con servidores
                     //   this.beginConectionWithServes();
                 } else {
-
                     this.showMessageError("No conection", "The server main does not answer");
-
                     this.send.setEnabled(false);
                     this.btnSend.setEnabled(false);
                 }
@@ -255,7 +253,6 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
             //Iniciar conexciones con servidores
             this.beginConectionWithServes();
-
             this.sendQuestionServer();
 
         } else {
@@ -281,7 +278,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
     public void sendQuestionServer() {
 
         for (int i = 0; i < controllerServer.size(); i++) {
-            controllerServer.get(i).sendQuestion(SEND_SERVER);
+            controllerServer.get(i).sendQuestion(this.SEND_SERVER);
         }
 
         for (BESConController t : controllerServer) {
@@ -289,8 +286,9 @@ public class ConectionClientServer extends javax.swing.JFrame {
                 t.getThread().join();
             } catch (InterruptedException ex) {
                 this.showMessageError("SERVERS", "Error in answer with servers");
+                
             }
-        }
+        } 
         this.answersServers();
     }
 
@@ -314,7 +312,6 @@ public class ConectionClientServer extends javax.swing.JFrame {
                     for (String topic : topics) {
 
                         this.ANSWER_SERVER += items + " - " + topic.trim() + "\n";
-                        //System.out.println(ANSWER_SERVER);
                         items++;
                     }
 
@@ -326,19 +323,14 @@ public class ConectionClientServer extends javax.swing.JFrame {
                     for (String q : questions) {
 
                         this.ANSWER_SERVER += itemsQuestion + " - " + q.trim() + "\n";
-                        //System.out.println(ANSWER_SERVER);
                         itemsQuestion++;
                     }
 
                 } else if (answer.startsWith("1000")) { //Respuesta a preguntas
                     this.ANSWER_SERVER = answer.substring(5);
-                    // System.out.println( ANSWER_SERVER);
 
                 } else if (answer.startsWith("0000")) { // no se encuentra respuesta a la pregunta
-
-                    // System.out.println("No hay respuesta para tu pregunta :(");
                     notAnswerServer++;
-                    //  System.out.println(""+notAnswerServer);
                 }
             } else {
 
@@ -348,12 +340,12 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
         if (notAnswerServer == hosts.length) {
             this.ANSWER_SERVER = "...";
-            showMessageError("NOT ANSWER :(", "No answer to your question");
+            showMessageError("NOT ANSWER :(", "No answer to your question ");
         }
 
         this.JPshow.replaceSelection(ANSWER_SERVER);
-
         this.ANSWER_SERVER = "-1";
+        this.controllerServer.clear();
        
     }
 
