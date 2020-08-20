@@ -26,6 +26,8 @@ public class ConectionClientServer extends javax.swing.JFrame {
     String SEND_SERVER = "";
     String ANSWER_SERVER = "";
 
+    Summary showSummary = new Summary();
+
     public ConectionClientServer() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -50,6 +52,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         JPshow = new javax.swing.JTextPane();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CONECTION TO SERVER QUESTIONS");
@@ -183,6 +186,17 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 880, 360));
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel6.setText("Search and response summary");
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 190, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,7 +218,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
     }//GEN-LAST:event_hostActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        this.setCursor(WAIT_CURSOR);
         String host = this.host.getText();
         this.portConection = Integer.parseInt(this.port.getText());
 
@@ -226,29 +240,37 @@ public class ConectionClientServer extends javax.swing.JFrame {
                     //Iniciar conexciones con servidores
                     //   this.beginConectionWithServes();
                 } else {
+
                     this.showMessageError("No conection", "The server main does not answer");
                     this.send.setEnabled(false);
                     this.btnSend.setEnabled(false);
+                    this.showSummary.addMessageChat("The server main does not answer", 3);
                 }
 
             } catch (IOException ex) {
+                this.showSummary.addMessageChat("Fail conection with main server " + host + ":" + this.portConection, 3);
                 this.showMessageError("NO CONECTION", "Fail conection with main server");
 
             }
 
         } else {
 
-            this.showMessageError("No conection", "Did not possible the conection");
+            this.showMessageError("No conection", "Please input host and port main server");
             this.send.setEnabled(false);
             this.btnSend.setEnabled(false);
+            this.showSummary.addMessageChat("Fail in host and port", 3);
         }
+
+        this.setCursor(DEFAULT_CURSOR);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
 
+        this.setCursor(WAIT_CURSOR);
         this.SEND_SERVER = send.getText();
 
+        this.showSummary.addMessageChat(this.SEND_SERVER, 1);
         if (!this.SEND_SERVER.isEmpty()) {
 
             //Iniciar conexciones con servidores
@@ -257,10 +279,17 @@ public class ConectionClientServer extends javax.swing.JFrame {
 
         } else {
             this.showMessageError("PLEASE!", "Input a question");
+            this.showSummary.addMessageChat("Input a question", 3);
         }
 
 
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+
+        this.showSummary.setVisible(true);
+
+    }//GEN-LAST:event_jLabel6MouseClicked
 //Inicia la conexión con las IPs y puertos que dió como respuesta el servidor principal
 
     public void beginConectionWithServes() {
@@ -286,9 +315,9 @@ public class ConectionClientServer extends javax.swing.JFrame {
                 t.getThread().join();
             } catch (InterruptedException ex) {
                 this.showMessageError("SERVERS", "Error in answer with servers");
-                
+                this.showSummary.addMessageChat("Error in answer with servers", 3);
             }
-        } 
+        }
         this.answersServers();
     }
 
@@ -296,7 +325,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
     public void answersServers() {
 
         int items = 1;
-        int itemsQuestion=1;
+        int itemsQuestion = 1;
         int notAnswerServer = 0;
         this.ANSWER_SERVER = "";
         this.JPshow.setText("");
@@ -335,18 +364,23 @@ public class ConectionClientServer extends javax.swing.JFrame {
             } else {
 
                 this.showMessageError("NO ANSWER", "- - Did not answer");
+                this.showSummary.addMessageChat("Did not answer of servers", 3);
             }
         }
 
         if (notAnswerServer == hosts.length) {
             this.ANSWER_SERVER = "...";
             showMessageError("NOT ANSWER :(", "No answer to your question ");
+            this.showSummary.addMessageChat("No answer to your question", 3);
+
         }
 
         this.JPshow.replaceSelection(ANSWER_SERVER);
+        this.showSummary.addMessageChat(ANSWER_SERVER, 2);
         this.ANSWER_SERVER = "-1";
         this.controllerServer.clear();
-       
+        this.setCursor(DEFAULT_CURSOR);
+
     }
 
     //Mensaje de error en pantalla al usuario
@@ -404,6 +438,7 @@ public class ConectionClientServer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
